@@ -1,31 +1,31 @@
 #!/bin/bash
 
 ####### Variables
-PE_VERSION="2016.4.0"
-IMAGE_NAME="jefferyb/puppet-enterprise:${PE_VERSION}"
-ADMIN_PASSWORD="welcometopuppet"
-PUPPET_MASTER_HOSTNAME="puppet.example.com"
-PE_DOWNLOAD_LINK="LINK_TO_PE_DOWNLOAD"
-TIMEZONE="America/Chicago"
+PE_VERSION="2019.2.2"
+IMAGE_NAME="puppet-enterprise:${PE_VERSION}"
+ADMIN_PASSWORD="D3v0Ps_aDm!n"
+PUPPET_MASTER_HOSTNAME="puppet.dwp.gov.uk"
+PE_DOWNLOAD_LINK="--content-disposition 'https://pm.puppet.com/cgi-bin/download.cgi?dist=el&rel=7&arch=x86_64&ver=latest'"
+TIMEZONE="Europe/London"
 ####### End Variables #######
 
-apt-get update
-apt-get install -y lsb-release wget
+yum update
+yum install -y lsb-release wget
 
 echo "${TIMEZONE}" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
-locale-gen en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+locale-gen en_GB.UTF-8
+export LANG=en_GB.UTF-8
+export LANGUAGE=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 cd /root/puppet
 . /etc/lsb-release
-if [ ! -f puppet-enterprise-${PE_VERSION}-ubuntu-${DISTRIB_RELEASE}-amd64.tar.gz ]; then
-  wget -O puppet-enterprise-${PE_VERSION}-ubuntu-${DISTRIB_RELEASE}-amd64.tar.gz ${PE_DOWNLOAD_LINK}
+if [ ! -f puppet-enterprise-2019.2.2-el-7-x86_64.tar.gz ]; then
+  wget -O puppet-enterprise-2019.2.2-el-7-x86_64.tar.gz ${PE_DOWNLOAD_LINK}
 fi
-tar zxf puppet-enterprise-${PE_VERSION}-ubuntu-${DISTRIB_RELEASE}-amd64.tar.gz
-cd puppet-enterprise-${PE_VERSION}-ubuntu-${DISTRIB_RELEASE}-amd64
+tar zxf puppet-enterprise-2019.2.2-el-7-x86_64.tar.gz
+cd puppet-enterprise-2019.2.2-el-7-x86_64
 
 # Create a pe.conf file
 cat > pe.conf <<'PECONF'
