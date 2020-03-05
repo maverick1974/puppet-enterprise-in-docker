@@ -1,16 +1,16 @@
 #!/bin/bash
 
 ####### Variables
-PE_VERSION="2016.4.0"
-IMAGE_NAME="jefferyb/puppet-enterprise:${PE_VERSION}"
-PUPPET_MASTER_HOSTNAME="puppet.example.com"
+PE_VERSION="2019.2.2"
+IMAGE_NAME="puppet-enterprise:${PE_VERSION}"
+PUPPET_MASTER_HOSTNAME="puppet.dwp.gov.uk"
 ####### End Variables #######
 
-# Make sure we have the latest version of ubuntu:14.04
-docker pull ubuntu:14.04
+# Make sure we have the latest version of centos-7-x86_64
+docker pull centos:centos7.7.1908
 
 # Start a docker container that we're going to use
-docker run -d -it --name create-puppet-image -h ${PUPPET_MASTER_HOSTNAME} -v $(pwd):/root/puppet ubuntu:14.04
+docker run -d -it --name create-puppet-image -h ${PUPPET_MASTER_HOSTNAME} -v $(pwd):/root/puppet centos:centos7.7.1908
 
 # Start the install in the container
 docker exec -it create-puppet-image /root/puppet/install-puppet-in-docker
@@ -35,7 +35,7 @@ docker run -d \
 --name test-puppet-enterprise \
 -e 'AUTOSIGN=true' \
 -e 'TERM=xterm' \
--e 'TZ=America/Chicago' \
+-e 'TZ=Europe/London' \
 -p 443:443 \
 -p 8140:8140 \
 -p 8142:8142 \
@@ -47,4 +47,3 @@ ${IMAGE_NAME}
 
 # Check the logs
 docker logs -f test-puppet-enterprise
-
