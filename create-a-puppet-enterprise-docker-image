@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ####### Variables
-PE_VERSION="2019.2.2"
+PE_VERSION="2019.2.1"
 IMAGE_NAME="puppet-enterprise:${PE_VERSION}"
-PUPPET_MASTER_HOSTNAME="puppet.dwp.gov.uk"
+PUPPET_MASTER_HOSTNAME="master.mllab"
 ####### End Variables #######
 
 # Make sure we have the latest version of centos-7-x86_64
